@@ -8,7 +8,7 @@ This application has App.js, which is used to Render the Class
 
 import React,{Component} from 'react';
 
-
+```
 class App extends Component {
 
 render(){
@@ -22,9 +22,10 @@ render(){
 }
 
 export default App
-
+```
 
 ## index.js
+```
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -36,4 +37,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
+```
