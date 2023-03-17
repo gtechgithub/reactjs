@@ -11,19 +11,57 @@ import { ICellRendererFunc } from "ag-grid-community";
 
 function RedCellRenderer(props: any) {
   // props is ICellRenererParams. See:
-  // https://www.ag-grid.com/react-grid/component-cell-renderer/#cell-renderer-component-2
-  const [open, setOpen] = useState(false);
-  const onClose = () => setOpen(false);
+  const [openCredit, setOpenCredit] = useState(false);
+  const onCloseCredit = () => setOpenCredit(false);
+
+  const [openNett, setOpenNett] = useState(false);
+  const onCloseNett = () => setOpenNett(false);
+
+
+  const [creditLimitAvailable, setCreditLimitAvailable] = useState(false);
+  const [nettAvailable, setNettAvailable] = useState(false);
+
+
+  const [fundingRules, setFundingRules] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log("inside use effect");
+    setFundingRules(props.data.fundingRule.split(" ",2));
+  },[]);
+
+
+  useEffect(() => {
+    console.log("inside use effect1");
+    if (fundingRules[0]=== "CREDITLIMIT" || fundingRules[1]=== "CREDITLIMIT"  ) {
+      setCreditLimitAvailable(true);
+    } 
+    
+    if (fundingRules[0]=== "NETTED" || fundingRules[1]=== "NETTED"  ) {
+       setNettAvailable(true);
+    }
+  },[fundingRules]);
+
+
 
   return (
     <>
-      <a href="/#" onClick={() => setOpen(true)}>
-        {props.value}
+       { creditLimitAvailable === true &&  <a href="/#" onClick={() => setOpenCredit(true)}>
+        {/* {props.data.fundingRule}  */}
+         CREDITLIMIT
+      </a> }
+      
+      <span> </span> <span> </span>
+      { nettAvailable === true && <a href="/#" onClick={() => setOpenNett(true)}>
+        {/* {props.data.fundingRule}  */}
+         NETTED
       </a>
-      {props.value === "Credit Limit" && (
+      }
+      
+      
+      {  creditLimitAvailable && (
         <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
+          open={openCredit}
+          onClose={() => setOpenCredit(false)}
           fullWidth
           maxWidth="md"
         >
@@ -32,17 +70,17 @@ function RedCellRenderer(props: any) {
             <Grid1 />
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={onCloseCredit} color="primary">
               Close
             </Button>
           </DialogActions>
         </Dialog>
       )}
 
-      {props.value === "NETTED" && (
+      { nettAvailable && (
         <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
+          open={openNett}
+          onClose={() => setOpenNett(false)}
           fullWidth
           maxWidth="md"
         >
@@ -51,7 +89,7 @@ function RedCellRenderer(props: any) {
             <Grid1 />
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClose} color="primary">
+            <Button onClick={onCloseNett} color="primary">
               Close
             </Button>
           </DialogActions>

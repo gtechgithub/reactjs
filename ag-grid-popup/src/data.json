@@ -2,21 +2,21 @@
     {
       "transactionNo": 10001,
       "transactionType": "RVP",
-      "fundingRule": "Credit Limit",
+      "fundingRule": "CREDITLIMIT",
       "ISIN": "ISIN0001",
       "SafeKeepingAcc": "SAFE0001"
     },
     {
       "transactionNo": 10002,
       "transactionType": "RVP",
-      "fundingRule": "Credit Limit",
+      "fundingRule": "NETTED",
       "ISIN": "ISIN0002",
       "SafeKeepingAcc": "SAFE0002"
     },
     {
       "transactionNo": 10003,
       "transactionType": "RVP",
-      "fundingRule": "NETTED",
+      "fundingRule": "NETTED CREDITLIMIT",
       "ISIN": "ISIN0003",
       "SafeKeepingAcc": "SAFE0003"
     }

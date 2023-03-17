@@ -3,9 +3,14 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { ColDef } from "ag-grid-community";
+import { ColDef, ValueGetterParams } from "ag-grid-community";
 import { fetchData, Athlete } from "./api";
 import RedCellRenderer from "./RedCellRenderer";
+
+const rowDataGetter =  (params: ValueGetterParams) => {
+  console.log("params data:" + JSON.stringify(params.data));
+  return params.data;
+};
 
 const columnDefs: ColDef[] = [
   {
@@ -30,13 +35,15 @@ const columnDefs: ColDef[] = [
   {
     headerName: "fundingRule",
     field: "fundingRule",
-    width: 120,
+    
+    width: 150,
     cellStyle: () => ({
       display: "flex",
       alignItems: "left",
       justifyContent: "left"
     }),
-    cellRendererFramework: RedCellRenderer
+    cellRendererFramework: RedCellRenderer,
+    valueGetter : rowDataGetter
   },
   {
     headerName: "ISIN",
@@ -49,6 +56,8 @@ const columnDefs: ColDef[] = [
     width: 110
   }
 ];
+
+
 
 function Grid() {
   const [rowData, setRowData] = React.useState<Athlete[]>([]);
